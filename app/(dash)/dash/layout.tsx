@@ -19,12 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} grid-pattern min-h-dvh`}>
+      <body className={`${inter.className} min-h-dvh`}>
         <NextUIProvider>
           <Suspense>
             <div className="flex h-dvh">
               <Navbar />
-              <div className="overflow-y-auto w-full">{children}</div>
+              <div className="overflow-y-auto w-full pt-4">{children}</div>
             </div>
           </Suspense>
         </NextUIProvider>

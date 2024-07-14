@@ -4,7 +4,7 @@ import { SiGithub } from "react-icons/si";
 
 export default async function SignInPage() {
   return (
-    <div className="h-dvh grid-pattern w-dvw flex justify-center items-center">
+    <div className="h-dvh grid-pattern w-dvw !bg-slate-400 flex justify-center items-center">
       <div className="bg-slate-200 border-2 shadow shadow-slate-500 border-slate-300 w-[350px] p-4 rounded-2xl">
         <div className="mb-10">
           <p className="text-3xl font-bold">Hello!</p>
