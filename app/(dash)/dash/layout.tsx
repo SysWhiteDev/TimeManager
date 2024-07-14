@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { NextUIProvider } from "@nextui-org/react";
-import "./globals.css";
+import "../../globals.css";
 import { Suspense } from "react";
+import Navbar from "@/components/navigation/dashboard/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} grid-pattern min-h-dvh`}>
         <NextUIProvider>
-          <Suspense>{children}</Suspense>
+          <Suspense>
+            <div className="flex h-dvh">
+              <Navbar />
+              <div className="overflow-y-auto w-full">{children}</div>
+            </div>
+          </Suspense>
         </NextUIProvider>
       </body>
     </html>
