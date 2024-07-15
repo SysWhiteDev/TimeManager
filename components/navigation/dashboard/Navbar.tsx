@@ -12,7 +12,7 @@ import Image from "next/image";
 
 export default function Navbar({ session }: any): React.JSX.Element {
   return (
-    <div className="h-full flex mr-4 items-center shadow justify-between flex-col bg-white p-3 min-w-[250px]">
+    <div className="h-full flex items-center shadow justify-between flex-col bg-white p-3 min-w-[250px]">
       <div className="w-full gap-2 flex flex-col">
         <Image
           src={"/logo.png"}

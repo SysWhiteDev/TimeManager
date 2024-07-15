@@ -24,7 +24,7 @@ export default function RootLayout({
           <Suspense>
             <div className="flex h-dvh">
               <Navbar />
-              <div className="overflow-y-auto w-full pt-4">{children}</div>
+              <div className="overflow-y-auto w-full p-4">{children}</div>
             </div>
           </Suspense>
         </NextUIProvider>
