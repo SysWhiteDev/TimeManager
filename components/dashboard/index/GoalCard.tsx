@@ -1,6 +1,5 @@
 import React from "react";
 import { Lora } from "next/font/google";
-import { Skeleton } from "@nextui-org/react";
 import Link from "next/link";
 const font = Lora({ subsets: ["latin"] });
 
@@ -29,12 +28,12 @@ export default function GoalCard({
             <>
               {" "}
               <p
-                className={`text-xl font-bold text-neutral-700 ${font.className}`}
+                className={`truncate text-xl font-bold text-neutral-700 ${font.className}`}
               >
-                Goal title
+                {title || "Title"}
               </p>
               <p className="truncate w-[80%] text-sm opacity-75">
-                Descriptioooooooooooooooooooooooooooooooooooooooooooooooooon
+                {description || "Description"}
               </p>
             </>
           )}
