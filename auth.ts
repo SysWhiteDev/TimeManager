@@ -1,12 +1,10 @@
 import NextAuth from "next-auth"
 import github from "next-auth/providers/github"
-import { PrismaClient } from '@prisma/client'
-
+import prisma from "@/utils/db"
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [github],
     events: {
         signIn: async (message: any) => {
-            const prisma = new PrismaClient()
             prisma.user.upsert({
                 where: { email: message.user.email },
                 update: {},
@@ -17,10 +15,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 console.log(e)
                 console.error("Sum wrong with db gang")
             })
-        }
+            await prisma.$disconnect()
+        },
     },
     callbacks: {
         async session({ session }: any) {
+            
+            await prisma.user.findUnique({
+                where: { email: session.user.email }
+            }).then((user) => {
+                session.user.id = user?.id
+            }).catch((e) => {
+                console.log(e)
+                console.error("Sum wrong with db gang")
+            })
+            session.user.id = 0
+            console.log(session.user)
             return session
         }
     }
