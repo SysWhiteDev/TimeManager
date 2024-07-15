@@ -14,5 +14,6 @@ export const GET = auth(async function GET(req) {
             completed: true
         }
     })
+    await prisma.$disconnect();
     return Response.json(goals, { status: 200 })
 }) 
