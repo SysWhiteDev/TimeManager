@@ -10,7 +10,8 @@ export const GET = auth(async function GET(req) {
         select: {
             title: true,
             description: true,
-            id: true
+            id: true,
+            completed: true
         }
     })
     return Response.json(goals, { status: 200 })

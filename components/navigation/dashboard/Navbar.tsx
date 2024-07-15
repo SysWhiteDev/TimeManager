@@ -13,7 +13,7 @@ import Image from "next/image";
 export default function Navbar({ session }: any): React.JSX.Element {
   return (
     <div className="h-full flex items-center shadow justify-between flex-col bg-white p-3 min-w-[250px]">
-      <div className="w-full gap-2 flex flex-col">
+      <div className="w-full gap-0.5 flex flex-col">
         <Image
           src={"/logo.png"}
           alt="User Avatar"
@@ -21,14 +21,12 @@ export default function Navbar({ session }: any): React.JSX.Element {
           width={390}
           height={208}
         />
-
         <NavbarLink dest="/dash">
           <GrProjects size={16} />
           <p>Your goals</p>
         </NavbarLink>
         <NavbarLink dest="/dash/lb">
           <IoPodiumOutline size={16} className="text-neutral-600" />
-
           <p>Leaderboards</p>
         </NavbarLink>
       </div>

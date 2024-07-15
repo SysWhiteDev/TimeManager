@@ -16,25 +16,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 console.error("Sum wrong with db gang")
             })
             await prisma.$disconnect()
-        },
+        },            
     },
     callbacks: {
-        jwt({ token, trigger, session, account }) {
-            if (account?.provider === "github") {
-                return { ...token, accessToken: account?.access_token }
-            }
-            return token;
-        },
         session: async ({ session, token }: any) => {
             const data = await fetch(`${process.env.API_BASE}/api/user`, {
                 headers: {
-                    "user-email": session.user.email,
+                    "session": JSON.stringify(session),
                 }
             });
             const user = await data.json();
             session.user.id = user.id;
             session.accessToken = token.accessToken
             return session;
+        },
+        jwt({ token, trigger, session, account }) {
+            if (account?.provider === "github") {
+                return { ...token, accessToken: account?.access_token }
+            }
+            return token;
         },
     }
 })
