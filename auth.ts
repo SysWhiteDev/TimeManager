@@ -1,34 +1,26 @@
 import NextAuth from "next-auth"
 import github from "next-auth/providers/github"
-var Airtable = require("airtable");
-var base = new Airtable({ apiKey: process.env.AIRTABLE_TOKEN }).base(
-    process.env.AIRTABLE_BASE
-);
+import { PrismaClient } from '@prisma/client'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     providers: [github],
-    callbacks: {
-        async signIn(user: any) {
-            await base("Users").create([
-                {
-                    fields: {
-                        Name: user.profile.name,
-                        Email: user.profile.email,
-                    }
-                }
-            ])
-            return true;
-        },
-        async session({ session }: any) {
-            await base("Users").find(session.user.name, (err: any, res: any) => {
-                if (err) {
-                    console.error(err)
-                    return false;
-                }
-                session.user.id = res.id
-                console.log("HIII")
-                return session
+    events: {
+        signIn: async (message: any) => {
+            const prisma = new PrismaClient()
+            prisma.user.upsert({
+                where: { email: message.user.email },
+                update: {},
+                create: { email: message.user.email, name: message.user.name, }
+            }).then(async () => {
+                console.log("User created")
+            }).catch((e: any) => {
+                console.log(e)
+                console.error("Sum wrong with db gang")
             })
+        }
+    },
+    callbacks: {
+        async session({ session }: any) {
             return session
         }
     }

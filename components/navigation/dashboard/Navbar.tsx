@@ -24,7 +24,7 @@ export default function Navbar({ session }: any): React.JSX.Element {
 
         <NavbarLink dest="/dash">
           <GrProjects size={16} />
-          <p>Your projects</p>
+          <p>Your goals</p>
         </NavbarLink>
         <NavbarLink dest="/dash/lb">
           <IoPodiumOutline size={16} className="text-neutral-600" />
