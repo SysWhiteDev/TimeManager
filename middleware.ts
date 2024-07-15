@@ -1,6 +1,6 @@
 import { auth } from "@/auth"
 
-const unauthrizedRoutes = ["/auth/signin", "/"]
+const unauthrizedRoutes = ["/auth/signin"]
 
 export default auth((req) => {
     if (!unauthrizedRoutes.includes(req.nextUrl.pathname) && !req.auth) {

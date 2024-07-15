@@ -17,7 +17,7 @@ export default function Navbar({ session }: any): React.JSX.Element {
         <Image
           src={"/logo.png"}
           alt="User Avatar"
-          className="w-[250px] object-cover select-none pointer-events-none"
+          className="w-[250px] mb-1 object-cover select-none pointer-events-none"
           width={390}
           height={208}
         />

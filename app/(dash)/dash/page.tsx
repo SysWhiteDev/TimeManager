@@ -1,19 +1,14 @@
+import { Button } from "@nextui-org/react";
+import { createNewProject } from "./actions";
+
 export default function test() {
   return (
     <div>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
-      <p>asdsada</p>
+      <form
+        action={createNewProject}
+      >
+        <Button type="submit">Test Create Record </Button>
+      </form>
     </div>
   );
 }
