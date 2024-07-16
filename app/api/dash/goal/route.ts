@@ -14,5 +14,6 @@ export const GET = auth(async function GET(req, { params }) {
             createdAt: true,
         }
     });
+    await prisma.$disconnect();
     return Response.json(goal, { status: 200 });
 });
