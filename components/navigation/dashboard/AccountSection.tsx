@@ -17,7 +17,6 @@ export default async function AccountSection() {
       />
       <p className="text-sm">
         {session.user.name}
-        <span className="text-xs bg-neutral-300 text-neutral-700 px-1 rounded-md ml-1.5 py-0.5">Free</span>
       </p>
     </div>
   );

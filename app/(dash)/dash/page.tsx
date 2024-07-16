@@ -27,7 +27,7 @@ export default function Page() {
 
   return (
     <div className="">
-      <div className="flex mb-4  justify-between rounded-lg overflow-hidden border-2 border-white shadow">
+      <div className="flex mb-4  justify-between rounded-lg overflow-hidden border-2 dark:border-neutral-600 border-white shadow">
         <div className="flex-1 p-4 bg-yellow-100">
           <p className="text-4xl text-yellow-800">
             {!loading
@@ -38,7 +38,7 @@ export default function Page() {
         </div>
         <div className="flex-1 p-4 bg-blue-200">
           <p className="text-4xl text-blue-800">
-            69420
+            0
           </p>
           <p className="text-lg opacity-75 text-blue-800">Completion Points</p>
         </div>
@@ -70,7 +70,7 @@ export default function Page() {
         </div>
         {!loading &&
           goalsList.filter((goal) => !goal.completed).length == 0 && (
-            <div className="bg-neutral-100 flex-col text-center flex justify-center items-center border-2 p-2 border-white  min-h-[150px] rounded-md w-full">
+            <div className="bg-neutral-100 dark:bg-neutral-800 flex-col text-center flex justify-center items-center border-2 p-2 border-white dark:border-neutral-700 min-h-[150px] rounded-md w-full">
               <p className="font-semibold">
                 {goalsList.filter((goal) => goal.completed).length == 0
                   ? "There isn't any goal yet."
@@ -107,7 +107,7 @@ export default function Page() {
                 ))}
         </div>
         {!loading && goalsList.filter((goal) => goal.completed).length == 0 && (
-          <div className="bg-neutral-100 flex-col text-center flex justify-center items-center border-2 p-2 border-white  min-h-[150px] rounded-md w-full">
+          <div className="bg-neutral-100 dark:bg-neutral-800 flex-col text-center flex justify-center items-center border-2 p-2 border-white dark:border-neutral-700 min-h-[150px] rounded-md w-full">
             <p className="font-semibold">There is no completed goal yet.</p>
             <p className="opacity-75 text-sm">
               {goalsList.filter((goal) => !goal.completed).length != 0 &&

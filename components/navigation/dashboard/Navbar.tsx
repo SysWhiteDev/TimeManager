@@ -7,33 +7,41 @@ import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { redirect } from "next/navigation";
 import { FaDoorOpen } from "react-icons/fa";
 import { GrProjects } from "react-icons/gr";
-import { IoPodiumOutline } from "react-icons/io5";
+import { IoPodium, IoPodiumOutline } from "react-icons/io5";
 import Image from "next/image";
+import { HiSquares2X2 } from "react-icons/hi2";
 
 export default function Navbar({ session }: any): React.JSX.Element {
   return (
-    <div className="h-full flex items-center shadow justify-between flex-col bg-white p-3 min-w-[250px]">
+    <div className="h-full flex items-center shadow dark:bg-neutral-800 justify-between flex-col bg-white p-3 min-w-[250px]">
       <div className="w-full gap-0.5 flex flex-col">
         <Image
           src={"/logo.png"}
-          alt="User Avatar"
-          className="w-[250px] mb-2.5 object-cover select-none pointer-events-none"
+          alt="App logo"
+          className="w-[250px] dark:hidden block mb-2.5 object-cover select-none pointer-events-none"
+          width={390}
+          height={208}
+        />
+        <Image
+          src={"/logo-dark.png"}
+          alt="App logo"
+          className="w-[250px] hidden dark:block mb-2.5 object-cover select-none pointer-events-none"
           width={390}
           height={208}
         />
         <NavbarLink dest="/dash">
-          <GrProjects size={16} />
+          <HiSquares2X2 size={16} />
           <p>Your goals</p>
         </NavbarLink>
         <NavbarLink dest="/dash/lb">
-          <IoPodiumOutline size={16} className="text-neutral-600" />
+          <IoPodium size={16} />
           <p>Leaderboards</p>
         </NavbarLink>
       </div>
       <div className="w-full">
         <div
           className={
-            "w-full bg-neutral-100 transition-all text-md items-center justify-between cursor-pointer flex py-1.5 px-1.5 rounded-lg"
+            "w-full bg-neutral-100 dark:bg-neutral-700 transition-all text-md items-center justify-between cursor-pointer flex py-1.5 px-1.5 rounded-lg"
           }
         >
           <AccountSection />

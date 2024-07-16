@@ -22,19 +22,19 @@ export default function GoalCard({
     >
       <div
         className={`${
-          loading ? "animate-pulse bg-white" : "hover:bg-white bg-neutral-100"
-        } flex items-end min-h-[150px] shadow transition-all border-2 rounded-md p-2 border-white`}
+          loading ? "animate-pulse dark:bg-neutral-700 bg-white" : "hover:bg-white dark:hover:bg-neutral-700 dark:bg-neutral-800 bg-neutral-100"
+        } flex items-end min-h-[150px] shadow transition-all border-2 rounded-md p-2 dark:border-neutral-700 border-white`}
       >
         <div className="w-full">
           {!loading && (
             <>
               {" "}
               <p
-                className={`truncate text-xl font-bold text-neutral-700 ${font.className}`}
+                className={`truncate text-xl font-bold dark:text-neutral-100 text-neutral-700 ${font.className}`}
               >
                 {title || "Title"}
               </p>
-              <p className="truncate w-[80%] text-sm opacity-75">
+              <p className="truncate w-[80%] text-sm dark:opacity-50 opacity-75">
                 {description || "Description"}
               </p>
             </>
