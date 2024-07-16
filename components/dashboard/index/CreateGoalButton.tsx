@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   ModalContent,
@@ -11,10 +11,11 @@ import {
   Textarea,
   Spinner,
 } from "@nextui-org/react";
-import { Lora } from "next/font/google";
+import { Lora, JetBrains_Mono } from "next/font/google";
 import { FaPaintBrush } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 const font = Lora({ subsets: ["latin"] });
+const mono = JetBrains_Mono({ subsets: ["latin"] });
 
 export default function CreateGoalButton(): React.JSX.Element {
   const router = useRouter();
@@ -37,6 +38,14 @@ export default function CreateGoalButton(): React.JSX.Element {
       router.push(`/dash/goal/${res?.id}`);
     });
   };
+
+  useEffect(() => {
+    window.onkeydown = (e) => {
+      if (e.key === "c") {
+        onOpen();
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -92,8 +101,13 @@ export default function CreateGoalButton(): React.JSX.Element {
       </Modal>
       <div
         onClick={onOpen}
-        className="bg-neutral-100 hover:bg-opacity-65 hover:cursor-pointer gap-3 flex items-center shadow rounded-md p-4"
+        className="bg-neutral-100 relative hover:bg-opacity-65 hover:cursor-pointer gap-3 flex items-center shadow rounded-2xl p-4"
       >
+        <div
+          className={`rounded-md w-[24px] h-[24px] flex items-center justify-center absolute top-3 text-sm text-neutral-600 border border-neutral-300 bg-neutral-200 shadow right-3 ${mono.className}`}
+        >
+          C
+        </div>
         <div className="h-[42px] w-[42px] bg-blue-500  flex rounded-full justify-center items-center">
           <FaPaintBrush size={18} className="text-blue-100" />
         </div>

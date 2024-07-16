@@ -17,7 +17,6 @@ export default function Page() {
   const getGoalList = async () => {
     const response = await fetch(`/api/dash`);
     const data = await response.json();
-    console.log(data);
     setGoalsList(data);
     setLoading(false);
   };
