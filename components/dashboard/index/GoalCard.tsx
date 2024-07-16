@@ -6,16 +6,18 @@ const font = Lora({ subsets: ["latin"] });
 type GoalCard = {
   title?: string;
   description?: string;
+  id?: string;
   loading?: boolean;
 };
 export default function GoalCard({
   title,
   description,
   loading,
+  id,
 }: GoalCard): React.JSX.Element {
   return (
     <Link
-      href={"/dash/"}
+      href={`${id ? `/dash/goal/${id}` : ""}`}
       className={`${!loading ? "cursor-pointer" : "cursor-default"}`}
     >
       <div

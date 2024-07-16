@@ -34,7 +34,7 @@ export default function CreateGoalButton(): React.JSX.Element {
     }).then(async (data: any) => {
       const res = await data.json();
       setLoading(false);
-      router.push(`/dash/${res?.id}`);
+      router.push(`/dash/goal/${res?.id}`);
     });
   };
 
