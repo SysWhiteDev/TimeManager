@@ -47,7 +47,7 @@ export default async function Page({ searchParams }: any) {
               <div className="min-w-[46px] flex-shrink-0 mr-4">{index + 1}</div>
               <span>SysWhite</span>
             </div>
-            <span>1920</span>
+            <span>{10000 - 100 * index}</span>
           </div>
         ))}
         <div className="flex font-bold text-sm text-neutral-700 dark:text-neutral-200 items-center justify-between border border-green-300 dark:border-green-700 dark:bg-green-800 p-2 px-3 bg-green-100 rounded-md">
