@@ -21,7 +21,7 @@ export default function Loading() {
       <MainActionButtons />
       <div className="mb-6 mt-8">
         <p className="font-semibold pb-1.5">In progress</p>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
           {Array.from({ length: 3 }).map((_, index) => (
             <GoalCard loading key={index} />
           ))}
@@ -29,7 +29,7 @@ export default function Loading() {
       </div>
       <div className="mb-6">
         <p className="font-semibold pb-1.5">Completed</p>
-        <div className={`grid grid-cols-4 gap-2`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2`}>
           {Array.from({ length: 4 }).map((_, index) => (
             <GoalCard loading key={index} />
           ))}

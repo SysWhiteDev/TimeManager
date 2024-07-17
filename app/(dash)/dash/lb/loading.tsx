@@ -18,9 +18,9 @@ export default async function Loading() {
   }
 
   return (
-    <div className="max-w-6xl px-4 sm:px-0 mx-auto pt-[10dvh] pb-8">
+    <div className="max-w-6xl lg:px-4 sm:px-0 mx-auto pt-[10dvh] pb-8">
       <p className="text-6xl font-semibold pt-2">Leaderboard</p>
-      <div className="bg-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 grid grid-cols-3 gap-1.5 border border-white p-2 rounded-xl mt-4">
+      <div className="bg-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 grid grid-cols-1 lg:grid-cols-3 gap-1.5 border border-white p-2 rounded-xl mt-4">
         <LbSelector targetTimespan={"week"} active>
           This week
         </LbSelector>

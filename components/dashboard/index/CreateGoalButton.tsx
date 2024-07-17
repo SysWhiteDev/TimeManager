@@ -126,11 +126,11 @@ export default function CreateGoalButton(): React.JSX.Element {
         className="bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-opacity-65 relative hover:bg-opacity-65 hover:cursor-pointer gap-3 flex items-center shadow rounded-2xl p-4"
       >
         <div
-          className={`rounded-md w-[24px] h-[24px] flex items-center justify-center absolute top-3 text-sm text-neutral-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-600 dark:bg-neutral-700 bg-neutral-200 shadow right-3 ${mono.className}`}
+          className={`rounded-md w-[24px] hidden lg:flex h-[24px] flex items-center justify-center absolute top-3 text-sm text-neutral-600 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-600 dark:bg-neutral-700 bg-neutral-200 shadow right-3 ${mono.className}`}
         >
           C
         </div>
-        <div className="h-[42px] w-[42px] bg-blue-500  flex rounded-full justify-center items-center">
+        <div className="h-[42px]  flex-shrink-0 w-[42px] bg-blue-500  flex rounded-full justify-center items-center">
           <FaPaintBrush size={18} className="text-blue-100" />
         </div>
         <div>

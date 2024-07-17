@@ -7,6 +7,6 @@ body {
 }
 
 .grid-pattern {
-  background: url("/grid.svg");
+  @apply bg-[url('/grid.svg')] dark:bg-[url('/grid-dark.svg')];
   background-size: 1.5%;
 }

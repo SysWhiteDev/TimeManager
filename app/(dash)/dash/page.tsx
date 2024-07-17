@@ -31,7 +31,7 @@ export default async function Page() {
   await prisma.$disconnect();
   return (
     <div className="">
-      <div className="flex mb-4  justify-between rounded-lg overflow-hidden border-2 dark:border-neutral-600 border-white shadow">
+      <div className="flex mb-4 flex-col-reverse lg:flex-row justify-between rounded-lg overflow-hidden border-2 dark:border-neutral-600 border-white shadow">
         <div className="flex-1 p-4 bg-yellow-100">
           <p className="text-4xl text-yellow-800">
             {goalsList.filter((goal) => !goal.completed).length}
@@ -52,7 +52,7 @@ export default async function Page() {
       <MainActionButtons />
       <div className="mb-6 mt-8">
         <p className="font-semibold pb-1.5">In progress</p>
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
           {goalsList
             .filter((goal) => !goal.completed)
             .map((goal, index) => (
@@ -81,7 +81,7 @@ export default async function Page() {
       </div>
       <div className="mb-6">
         <p className="font-semibold pb-1.5">Completed</p>
-        <div className={`grid grid-cols-4 gap-2`}>
+        <div className={`grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2`}>
           {goalsList
             .filter((goal) => goal.completed)
             .map((goal, index) => (

@@ -20,24 +20,16 @@ export default async function Page({ searchParams }: any) {
     );
   }
 
-  await new Promise((res) => {
-    setTimeout(() => {
-      res("resolve")
-    }, 2000)
-  })
-
   return (
-    <div className="max-w-6xl px-4 sm:px-0 mx-auto pt-[10dvh] pb-8">
+    <div className="max-w-6xl lg:px-4 sm:px-0 mx-auto pt-[5dvh] lg:pt-[10dvh] pb-8">
       <p className="text-6xl font-semibold pt-2">Leaderboard</p>
-      <div className="bg-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 grid grid-cols-3 gap-1.5 border border-white p-2 rounded-xl mt-4">
-        <LbSelector targetTimespan={"week"}>
-          This week
-        </LbSelector>
+      <div className="bg-neutral-100 dark:bg-neutral-800 grid-cols-1 lg:grid-cols-3 dark:border-neutral-700 grid grid-cols-3 gap-1.5 border border-white p-2 rounded-xl mt-4">
+        <LbSelector targetTimespan={"week"}>This week</LbSelector>
         <LbSelector targetTimespan={"month"}>This month</LbSelector>
         <LbSelector targetTimespan={"all"}>Lifetime</LbSelector>
       </div>
-      <div className="bg-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 border border-white p-2 rounded-xl mt-4">
-        <div className="flex text-sm  uppercase text-neutral-700 dark:text-neutral-300 dark:bg-neutral-900 items-center justify-between p-2 px-3 bg-neutral-200 rounded-md font-semibold">
+      <div className="bg-neutral-100 overflow-x-scroll dark:bg-neutral-800 dark:border-neutral-700 border border-white p-2 rounded-xl mt-4 w-full">
+        <div className="flex text-sm min-w-[400px] uppercase text-neutral-700 dark:text-neutral-300 dark:bg-neutral-900 items-center justify-between p-2 px-3 bg-neutral-200 rounded-md font-semibold">
           <div className="flex items-center">
             <div className="min-w-[46px] flex-shrink-0 mr-4">#</div>
             <span>User</span>
@@ -47,7 +39,7 @@ export default async function Page({ searchParams }: any) {
         {Array.from({ length: 50 }).map((_, index) => (
           <div
             key={index}
-            className="flex items-center justify-between p-2.5 px-3"
+            className="flex items-center min-w-[400px] justify-between p-2.5 px-3"
           >
             <div className="flex items-center">
               <div className="min-w-[46px] flex-shrink-0 mr-4">{index + 1}</div>
@@ -56,7 +48,7 @@ export default async function Page({ searchParams }: any) {
             <span>{10000 - 100 * index}</span>
           </div>
         ))}
-        <div className="flex font-bold text-sm text-neutral-700 dark:text-neutral-200 items-center justify-between border border-green-300 dark:border-green-700 dark:bg-green-800 p-2 px-3 bg-green-100 rounded-md">
+        <div className="flex font-bold min-w-[400px] text-sm text-neutral-700 dark:text-neutral-200 items-center justify-between border border-green-300 dark:border-green-700 dark:bg-green-800 p-2 px-3 bg-green-100 rounded-md">
           <div className="flex items-center">
             <div className="min-w-[46px] flex-shrink-0 mr-4">251</div>
             <span>User</span>

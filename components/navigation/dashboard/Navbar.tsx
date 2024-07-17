@@ -13,7 +13,7 @@ import { HiSquares2X2 } from "react-icons/hi2";
 
 export default function Navbar({ session }: any): React.JSX.Element {
   return (
-    <div className="h-full flex items-center shadow dark:bg-neutral-800 justify-between flex-col bg-white p-3 min-w-[250px]">
+    <div className="h-full flex items-center shadow dark:bg-neutral-800 justify-between flex-col bg-white overflow-hidden md:p-3 w-0  md:min-w-[250px]">
       <div className="w-full gap-0.5 flex flex-col">
         <Image
           src={"/logo.png"}
