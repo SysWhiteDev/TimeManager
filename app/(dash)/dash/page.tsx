@@ -3,7 +3,6 @@ import GoalCard from "@/components/dashboard/index/GoalCard";
 import MainActionButtons from "@/components/dashboard/index/MainActionButtons";
 import { auth } from "@/auth";
 import { PrismaClient } from "@prisma/client";
-
 type Goal = {
   title: string;
   description: string;

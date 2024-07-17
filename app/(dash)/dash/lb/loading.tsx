@@ -18,7 +18,7 @@ export default async function Loading() {
   }
 
   return (
-    <div className="max-w-6xl lg:px-4 sm:px-0 mx-auto pt-[10dvh] pb-8">
+    <div className="max-w-6xl lg:px-4 sm:px-0 mx-auto pt-[5dvh] lg:pt-[10dvh] pb-8">
       <p className="text-6xl font-semibold pt-2">Leaderboard</p>
       <div className="bg-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 grid grid-cols-1 lg:grid-cols-3 gap-1.5 border border-white p-2 rounded-xl mt-4">
         <LbSelector targetTimespan={"week"} active>
@@ -39,7 +39,7 @@ export default async function Loading() {
           <div
             key={index}
             style={{ animationDelay: `${(index * 80)}ms` }}
-            className="flex items-center min-h-[40px] bg-neutral-200 rounded-md animate-pulse bg-neutral-700 bg-opacity-50 my-2 justify-between p-2.5 px-3"
+            className="flex items-center min-h-[40px] bg-neutral-200 rounded-md animate-pulse dark:bg-neutral-700 bg-opacity-75 dark:bg-opacity-50 my-2 justify-between p-2.5 px-3"
           >
             <div className="flex items-center">
               <div className="min-w-[46px] flex-shrink-0 mr-4"></div>

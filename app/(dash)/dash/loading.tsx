@@ -4,7 +4,7 @@ import MainActionButtons from "@/components/dashboard/index/MainActionButtons";
 export default function Loading() {
   return (
     <div className="">
-      <div className="flex mb-4  justify-between rounded-lg overflow-hidden border-2 dark:border-neutral-600 border-white shadow">
+      <div className="flex mb-4 flex-col-reverse lg:flex-row justify-between rounded-lg overflow-hidden border-2 dark:border-neutral-600 border-white shadow">
         <div className="flex-1 p-4 bg-yellow-100">
           <p className="text-4xl text-yellow-800 animate-pulse">-</p>
           <p className="text-lg opacity-75 text-yellow-800">In progress</p>
