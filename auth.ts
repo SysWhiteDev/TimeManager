@@ -6,7 +6,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   events: {
     signIn: async (message: any) => {
       const prisma = new PrismaClient();
-      prisma.user
+      await prisma.user
         .upsert({
           where: { email: message.user.email },
           update: {},
@@ -14,7 +14,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         })
         .then(async () => {})
         .catch((e: any) => {
-          console.log(e);
           console.error("Sum wrong with db gang");
         });
       await prisma.$disconnect();
