@@ -1,42 +1,46 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-"use client";
-import React, { useEffect, useState } from "react";
+"use server";
+import React from "react";
 import { FiChevronLeft } from "react-icons/fi";
-import { useRouter } from "next/navigation";
-export default function Page({
-  params,
-}: {
-  params: { goalid: string };
-}): React.JSX.Element {
-  const router = useRouter();
-  const [goalData, setGoalData] = useState<any>(null);
+import TasksSection from "./TasksSection";
+import { auth } from "@/auth";
+import { PrismaClient } from "@prisma/client";
+import Link from "next/link";
 
-  const getGoalData = async () => {
-    await fetch(`/api/dash/goal?goalid=${params.goalid}`).then(
-      async (data: any) => {
-        const res = await data.json();
-        setGoalData(res);
-      }
-    );
-  };
-  useEffect(() => {
-    getGoalData();
-  }, []);
+export default async function Page({ params }: { params: { goalid: string } }) {
+  const session = await auth();
+  if (!session) return null;
+  let goalData: any;
+
+  const prisma = new PrismaClient();
+  goalData = await prisma.goal.findUnique({
+    where: {
+      id: params.goalid,
+    },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      createdAt: true,
+    },
+  });
+  await prisma.$disconnect();
+
   return (
-    <div className="max-w-6xl px-4 sm:px-0 mx-auto pt-[18dvh]">
-      <span
-        onClick={() => router.back()}
-        className="flex items-center gap-0.5 hover:underline opacity-75 cursor-pointer"
-      >
-        <FiChevronLeft />
-        Go back
-      </span>
-      <p className="text-6xl font-semibold pt-2">
-        {goalData?.title || "loading..."}
-      </p>
-      <p className="text-lg opacity-75 pt-1.5 whitespace-pre-line">
-        {goalData?.description || "loading..."}
-      </p>
+    <div className="max-w-6xl px-0 lg:px-4 mx-auto pt-[10dvh] lg:pt-[18dvh]">
+      <div>
+        <Link
+          href={"/dash"}
+          className="flex items-center gap-0.5 hover:underline opacity-75 cursor-pointer"
+        >
+          <FiChevronLeft />
+          Go back
+        </Link>
+        <p className="text-6xl font-semibold pt-2">{goalData?.title}</p>
+        <p className="text-lg opacity-75 pt-1.5 whitespace-pre-line">
+          {goalData?.description}
+        </p>
+      </div>
+      <TasksSection />
     </div>
   );
 }
