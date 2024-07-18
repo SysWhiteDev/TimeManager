@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import Task from "./Task";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import {
@@ -10,8 +10,8 @@ import {
   useDisclosure,
   ModalFooter,
 } from "@nextui-org/modal";
-import { Button, Input } from "@nextui-org/react";
-import { createTask, deleteGoal } from "./actions";
+import { Button, Input, Skeleton } from "@nextui-org/react";
+import { createTask, deleteGoal, getTasks } from "./actions";
 import { BsThreeDots } from "react-icons/bs";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -21,17 +21,34 @@ type TasksSectionProps = {
   goalId: string;
 };
 
+type Task = {
+  id: string;
+  title: string;
+  duration: number;
+};
+
 export default function TasksSection({
   goalId,
 }: TasksSectionProps): React.JSX.Element {
   const router = useRouter();
+  const [tasks, setTasks] = useState<Task[]>();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const tryDeleteGoal = async () => {
     await deleteGoal(goalId);
     router.push("/dash");
   };
 
+  const tryGetTasks = async () => {
+    const tasks: any = await getTasks(goalId);
+    setTasks(tasks);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    tryGetTasks();
+  }, []);
   let status = "running";
   return (
     <>
@@ -40,7 +57,10 @@ export default function TasksSection({
           {(onClose) => (
             <>
               <form
-                action={(formData: FormData) => createTask(goalId, formData)}
+                action={async (formData: FormData) => {
+                  await createTask(goalId, formData);
+                  await tryGetTasks();
+                }}
               >
                 <ModalHeader className="flex flex-col gap-1">
                   Add a new task
@@ -101,29 +121,31 @@ export default function TasksSection({
           </div>
         </div>
         <div className="">
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
-          <Task />
+          {loading ? (
+            <div className="">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <Skeleton key={i} className="rounded-md mb-1.5">
+                  <Task title="" duration={0} />
+                </Skeleton>
+              ))}
+            </div>
+          ) : (
+            <div>
+              {tasks?.map((task: Task, index: number) => (
+                <Task title={task.title} duration={task.duration} key={index} />
+              ))}
+              {tasks?.length === 0 && (
+                <div className="bg-neutral-100 dark:bg-neutral-800 my-2 flex-col text-center flex justify-center items-center border-2 p-2 border-white dark:border-neutral-700 min-h-[150px] rounded-md w-full">
+                  <p className="font-semibold">
+                    There is no task to complete yet.
+                  </p>
+                  <p className="opacity-75 text-sm">
+                    Add one by clicking that button
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>

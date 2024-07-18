@@ -27,6 +27,7 @@ export default async function Page() {
     },
   });
   await prisma.$disconnect();
+  
   return (
     <div className="">
       <div className="flex mb-4 flex-col-reverse lg:flex-row justify-between rounded-lg overflow-hidden border-2 dark:border-neutral-600 border-white shadow">
