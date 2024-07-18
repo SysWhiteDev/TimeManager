@@ -1,6 +1,7 @@
 import React from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { JetBrains_Mono } from "next/font/google";
+import { Button } from "@nextui-org/react";
 const mono = JetBrains_Mono({ subsets: ["latin"] });
 
 type TaskProps = {
@@ -16,22 +17,22 @@ export default function Task({}: TaskProps): React.JSX.Element {
       <div className="flex items-center gap-2.5">
         <span className={`${mono.className} mr-1`}>17:20</span>
         {status === "not_started" && (
-          <div className="flex items-center gap-1.5 cursor-pointer transition-all hover:bg-green-300 bg-green-400 text-green-900 px-2.5 py-0.5 rounded-md ">
+          <Button variant="flat" className="flex items-center gap-1.5 cursor-pointer transition-all hover:bg-green-300 bg-green-400 text-green-900 !px-2.5 1py-0.5  ">
             <FaPlay />
             Start task
-          </div>
+          </Button>
         )}
         {status === "running" && (
-          <div className="flex items-center gap-1.5 hover:bg-yellow-300 transition-all cursor-pointer bg-yellow-400 text-yellow-900 px-2.5 py-0.5 rounded-md ">
+          <Button variant="flat" className="flex items-center gap-1.5 hover:bg-yellow-300 transition-all cursor-pointer bg-yellow-400 text-yellow-900 !px-2.5 !py-0.5  ">
             <FaPause />
             Pause task
-          </div>
+          </Button>
         )}
         {status === "paused" && (
-          <div className="flex items-center gap-1.5 cursor-pointer hover:bg-yellow-300 transition-all bg-yellow-400 text-yellow-900 px-2.5 py-0.5 rounded-md ">
+          <Button variant="flat" className="flex items-center gap-1.5 cursor-pointer hover:bg-yellow-300 transition-all bg-yellow-400 text-yellow-900 !px-2.5 !py-0.5  ">
             <FaPlay />
             Resume task
-          </div>
+          </Button>
         )}
       </div>
     </div>

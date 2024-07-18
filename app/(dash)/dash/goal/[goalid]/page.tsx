@@ -40,7 +40,7 @@ export default async function Page({ params }: { params: { goalid: string } }) {
           {goalData?.description}
         </p>
       </div>
-      <TasksSection />
+      <TasksSection goalId={params.goalid} />
     </div>
   );
 }
