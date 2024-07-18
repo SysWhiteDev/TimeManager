@@ -1,4 +1,3 @@
-"use server";
 import React from "react";
 import { FaCrown, FaPaintBrush } from "react-icons/fa";
 import CreateGoalButton from "./CreateGoalButton";

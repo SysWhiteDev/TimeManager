@@ -1,4 +1,3 @@
-"use server";
 import GoalCard from "@/components/dashboard/index/GoalCard";
 import MainActionButtons from "@/components/dashboard/index/MainActionButtons";
 import { auth } from "@/auth";

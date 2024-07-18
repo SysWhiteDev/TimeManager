@@ -1,4 +1,3 @@
-"use server";
 import React from "react";
 import { FiChevronLeft } from "react-icons/fi";
 import TasksSection from "./TasksSection";
