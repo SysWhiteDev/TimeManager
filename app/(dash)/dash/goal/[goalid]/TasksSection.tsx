@@ -10,8 +10,8 @@ import {
   useDisclosure,
   ModalFooter,
 } from "@nextui-org/modal";
-import { Button, Input, Skeleton } from "@nextui-org/react";
-import { createTask, deleteGoal } from "./actions";
+import { Button, Input, Skeleton, Spinner } from "@nextui-org/react";
+import { createTask, deleteGoal, getTasks } from "./actions";
 import { BsThreeDots } from "react-icons/bs";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 
 type TasksSectionProps = {
   goalId: string;
+  fakeLoading?: boolean;
 };
 
 type Task = {
@@ -27,14 +28,15 @@ type Task = {
   duration: number;
 };
 
-
 export default function TasksSection({
   goalId,
+  fakeLoading,
 }: TasksSectionProps): React.JSX.Element {
   const router = useRouter();
   const [tasks, setTasks] = useState<Task[]>();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [loading, setLoading] = useState<boolean>(true);
+  const [createLoading, setCreateLoading] = useState<boolean>(false);
 
   const tryDeleteGoal = async () => {
     await deleteGoal(goalId);
@@ -42,18 +44,16 @@ export default function TasksSection({
   };
 
   const tryGetTasks = async () => {
-    const tasks: any = await fetch(
-      `${window.location.origin}/api/dash/goal/tasks?goalid=${goalId}`,
-      { next: { tags: ["tasks-list"] } }
-    );
-    setTasks(await tasks.json());
+    const tasks: any = await getTasks(goalId);
+    setTasks(tasks);
     setLoading(false);
   };
 
   useEffect(() => {
-    tryGetTasks();
+    if (!fakeLoading) {
+      tryGetTasks();
+    }
   }, []);
-  let status = "running";
   return (
     <>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -64,6 +64,8 @@ export default function TasksSection({
                 action={async (formData: FormData) => {
                   await createTask(goalId, formData);
                   await tryGetTasks();
+                  onClose();
+                  setCreateLoading(false);
                 }}
               >
                 <ModalHeader className="flex flex-col gap-1">
@@ -84,8 +86,18 @@ export default function TasksSection({
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancel
                   </Button>
-                  <Button type="submit" color="primary" onPress={onClose}>
-                    Submit
+                  <Button
+                    type="submit"
+                    color="primary"
+                    onPress={async () => {
+                      setCreateLoading(true);
+                    }}
+                  >
+                    {createLoading ? (
+                      <Spinner color="white" size="sm" />
+                    ) : (
+                      "Submit"
+                    )}
                   </Button>
                 </ModalFooter>
               </form>
@@ -108,29 +120,39 @@ export default function TasksSection({
           <div className="flex items-center gap-2">
             <Button
               variant="flat"
-              onClick={onOpen}
+              onClick={() => {
+                if (!fakeLoading) {
+                  onOpen();
+                }
+              }}
               color="primary"
               className="flex items-center gap-1.5 cursor-pointer transition-all !px-2.5 1py-0.5  "
             >
               <FaPlus />
               Add a task
             </Button>
-            <Popover>
-              <PopoverTrigger>
-                <Button className="w-[40px] h-[40px] !p-0 !min-w-0">
-                  <BsThreeDots />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent>
-                <button
-                  onClick={() => tryDeleteGoal()}
-                  className="w-full gap-2.5 text-red-500 text-md flex min-h-[35px] px-2 hover:underline hover:opacity-60 transition-all items-center justify-between"
-                >
-                  Delete Goal
-                  <FaRegTrashCan size={18} />
-                </button>
-              </PopoverContent>
-            </Popover>
+            {!fakeLoading ? (
+              <Popover>
+                <PopoverTrigger>
+                  <Button className="w-[40px] h-[40px] !p-0 !min-w-0">
+                    <BsThreeDots />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <button
+                    onClick={() => tryDeleteGoal()}
+                    className="w-full gap-2.5 text-red-500 text-md flex min-h-[35px] px-2 hover:underline hover:opacity-60 transition-all items-center justify-between"
+                  >
+                    Delete Goal
+                    <FaRegTrashCan size={18} />
+                  </button>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <Button className="w-[40px] h-[40px] !p-0 !min-w-0">
+                <BsThreeDots />
+              </Button>
+            )}
           </div>
         </div>
         <div className="">

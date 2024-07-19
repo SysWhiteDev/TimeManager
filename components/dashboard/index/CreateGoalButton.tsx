@@ -17,6 +17,8 @@ import { FaPaintBrush } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 const font = Lora({ subsets: ["latin"] });
 const mono = JetBrains_Mono({ subsets: ["latin"] });
+import { createGoal } from "./actions";
+import { revalidatePath } from "next/cache";
 
 export default function CreateGoalButton(): React.JSX.Element {
   const router = useRouter();
@@ -25,36 +27,6 @@ export default function CreateGoalButton(): React.JSX.Element {
   const [description, setDescription] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-
-  const tryCreateNewGoal = async () => {
-    setLoading(true);
-    await fetch("/api/dash", {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        description,
-      }),
-    }).then(async (data: any) => {
-      const res = await data.json();
-      if (res.id) {
-        router.push(`/dash/goal/${res?.id}`);
-      } else {
-        if (!res.id) {
-          setError("Please input a title and description of the goal");
-          setLoading(false);
-          setTimeout(() => {
-            setError("");
-          }, 2500);
-        } else {
-          setError("Uh oh! it seems something unexpected has happened :/");
-          setLoading(false);
-          setTimeout(() => {
-            setError("");
-          }, 2500);
-        }
-      }
-    });
-  };
 
   useEffect(() => {
     window.onkeydown = (e) => {
@@ -73,50 +45,74 @@ export default function CreateGoalButton(): React.JSX.Element {
               <ModalHeader className="flex flex-col gap-1">
                 Create a new goal
               </ModalHeader>
-              <ModalBody>
-                <div className="my-12 mt-2">
-                  <p className="font-semibold">Preview</p>
-                  <div
-                    className={` dark:bg-neutral-800 bg-neutral-100 flex items-end min-h-[150px] shadow transition-all border-2 rounded-md p-2 dark:border-neutral-700 border-white`}
-                  >
-                    <div className="w-full">
-                      <p
-                        className={`truncate text-xl font-bold dark:text-neutral-100 text-neutral-700 ${font.className}`}
-                      >
-                        {title || "Title"}
-                      </p>
-                      <p className="truncate w-[80%] text-sm dark:opacity-50 opacity-75">
-                        {description || "Description"}
-                      </p>
+              <form
+                action={async (formData: FormData) => {
+                  await createGoal(formData).then(async (goal) => {
+                    if (!goal) {
+                      setError(
+                        "Please input a title and description of the goal"
+                      );
+                      setLoading(false);
+                      setTimeout(() => {
+                        setError("");
+                      }, 2500);
+                      return;
+                    }
+                    await router.push(`/dash/goal/${goal?.id}`);
+                  });
+                }}
+              >
+                <ModalBody>
+                  <div className="my-12 mt-2">
+                    <p className="font-semibold">Preview</p>
+                    <div
+                      className={` dark:bg-neutral-800 bg-neutral-100 flex items-end min-h-[150px] shadow transition-all border-2 rounded-md p-2 dark:border-neutral-700 border-white`}
+                    >
+                      <div className="w-full">
+                        <p
+                          className={`truncate text-xl font-bold dark:text-neutral-100 text-neutral-700 ${font.className}`}
+                        >
+                          {title || "Title"}
+                        </p>
+                        <p className="truncate w-[80%] text-sm dark:opacity-50 opacity-75">
+                          {description || "Description"}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <Input
-                  type="text"
-                  label="Goal Name"
-                  size="sm"
-                  placeholder="Enter the name"
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-                <Textarea
-                  label="Goal Description"
-                  placeholder="Enter the description"
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                {error && (
-                  <span className="text-red-500 -translate-y-1.5 text-sm dark:text-red-600">
-                    {error}
-                  </span>
-                )}
-              </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Cancel
-                </Button>
-                <Button color="primary" onPress={() => tryCreateNewGoal()}>
-                  {loading ? <Spinner color="white" size="sm" /> : "Create"}
-                </Button>
-              </ModalFooter>
+                  <Input
+                    type="text"
+                    label="Goal Name"
+                    name="title"
+                    size="sm"
+                    placeholder="Enter the name"
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <Textarea
+                    label="Goal Description"
+                    name="description"
+                    placeholder="Enter the description"
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                  {error && (
+                    <span className="text-red-500 -translate-y-1.5 text-sm dark:text-red-600">
+                      {error}
+                    </span>
+                  )}
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    Cancel
+                  </Button>
+                  <Button
+                    color="primary"
+                    onPress={() => setLoading(true)}
+                    type="submit"
+                  >
+                    {loading ? <Spinner color="white" size="sm" /> : "Create"}
+                  </Button>
+                </ModalFooter>
+              </form>
             </>
           )}
         </ModalContent>

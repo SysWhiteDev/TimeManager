@@ -24,6 +24,7 @@ export default async function Page({ params }: { params: { goalid: string } }) {
   });
   await prisma.$disconnect();
 
+
   return (
     <div className="max-w-6xl px-0 lg:px-4 mx-auto pt-[10dvh] lg:pt-[18dvh]">
       <div>
