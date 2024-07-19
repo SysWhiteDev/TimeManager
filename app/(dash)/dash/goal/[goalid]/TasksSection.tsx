@@ -27,6 +27,7 @@ type Task = {
   duration: number;
 };
 
+
 export default function TasksSection({
   goalId,
 }: TasksSectionProps): React.JSX.Element {
@@ -152,7 +153,7 @@ export default function TasksSection({
                     There is no task to complete yet.
                   </p>
                   <p className="opacity-75 text-sm">
-                    Add one by clicking the "Add a task" button
+                    Add one by clicking the &quot;Add a task&quot; button
                   </p>
                 </div>
               )}
