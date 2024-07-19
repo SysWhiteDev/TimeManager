@@ -11,7 +11,7 @@ import {
   ModalFooter,
 } from "@nextui-org/modal";
 import { Button, Input, Skeleton } from "@nextui-org/react";
-import { createTask, deleteGoal, getTasks } from "./actions";
+import { createTask, deleteGoal } from "./actions";
 import { BsThreeDots } from "react-icons/bs";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -41,8 +41,11 @@ export default function TasksSection({
   };
 
   const tryGetTasks = async () => {
-    const tasks: any = await getTasks(goalId);
-    setTasks(tasks);
+    const tasks: any = await fetch(
+      `${window.location.origin}/api/dash/goal/tasks?goalid=${goalId}`,
+      { next: { tags: ["tasks-list"] } }
+    );
+    setTasks(await tasks.json());
     setLoading(false);
   };
 
@@ -91,7 +94,16 @@ export default function TasksSection({
       </Modal>
       <div className="bg-white flex flex-col gap-2.5 shadow p-4 pb-2 rounded-xl mt-12">
         <div className="flex justify-between border-b pb-4 items-center">
-          <span className="opacity-65">172 total tasks, 62 completed (0%)</span>
+          <span className="opacity-65">
+            {!loading && (
+              <>
+                {tasks?.length} total tasks, 0 completed
+                {tasks?.length !== 0 && (
+                  <span> ({tasks && (0 / tasks?.length) * 100}%)</span>
+                )}
+              </>
+            )}
+          </span>
           <div className="flex items-center gap-2">
             <Button
               variant="flat"
@@ -140,7 +152,7 @@ export default function TasksSection({
                     There is no task to complete yet.
                   </p>
                   <p className="opacity-75 text-sm">
-                    Add one by clicking that button
+                    Add one by clicking the "Add a task" button
                   </p>
                 </div>
               )}
