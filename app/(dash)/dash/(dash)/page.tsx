@@ -8,6 +8,7 @@ type Goal = {
   id: string;
   completed: boolean;
 };
+import {toast} from 'react-toastify';
 
 export default async function Page() {
   const session = await auth();
@@ -27,6 +28,7 @@ export default async function Page() {
     },
   });
   await prisma.$disconnect();
+
 
   return (
     <div className="">

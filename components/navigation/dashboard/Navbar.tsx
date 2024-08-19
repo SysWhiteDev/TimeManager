@@ -56,9 +56,8 @@ export default function Navbar({ session }: any): React.JSX.Element {
                 <form
                   action={async ({}) => {
                     "use server";
-
-                    await signOut({}).then(() => {
-                      redirect("/auth/signin");
+                    await signOut({
+                      redirectTo: "/auth/signin",
                     });
                   }}
                   className="w-full"

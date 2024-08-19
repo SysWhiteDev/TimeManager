@@ -16,6 +16,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { Popover, PopoverTrigger, PopoverContent } from "@nextui-org/react";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 type TasksSectionProps = {
   goalId: string;
@@ -44,6 +45,7 @@ export default function TasksSection({
     await deleteGoal(goalId).then(() => {
       router.push("/dash");
       setDeleting(false);
+      toast.success("Task deleted successfully");
     });
   };
 
@@ -70,6 +72,7 @@ export default function TasksSection({
                   await tryGetTasks();
                   onClose();
                   setCreateLoading(false);
+                  toast.success("Task added successfully");
                 }}
               >
                 <ModalHeader className="flex flex-col gap-1">
@@ -110,7 +113,7 @@ export default function TasksSection({
         </ModalContent>
       </Modal>
       <div className="bg-white dark:bg-neutral-950 flex flex-col gap-2.5 shadow p-4 pb-2 rounded-xl mt-12">
-        <div className="flex justify-between border-b dark:border-neutral-700 pb-4 items-center">
+        <div className="flex justify-between border-b dark:border-neutral-900 pb-4 items-center">
           <span className="opacity-65">
             {!loading && (
               <>

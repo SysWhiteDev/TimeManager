@@ -5,6 +5,8 @@ import "../../globals.css";
 import { Suspense } from "react";
 import Navbar from "@/components/navigation/dashboard/Navbar";
 import { FiAlertOctagon } from "react-icons/fi";
+import { Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,14 +21,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="">
+    <html lang="en" className="dark">
       <body className={`${inter.className} min-h-dvh`}>
         <NextUIProvider>
           <Suspense>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={2500}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
             <div className="flex h-dvh">
               <Navbar />
               <div className="overflow-y-auto w-full">
-                <div className="bg-red-400 dark:bg-red-700 shadow text-sm z-50 text-white py-1.5 sticky top-0 right-0 left-0 font-semibold text-left flex items-start gap-1 px-4 justify-center"><FiAlertOctagon size={16} className="flex-shrink-0 mt-0.5"/>Attention: The application is nowhere near to being completed, expect missing features and bugs</div>
+                <div className="bg-red-400 dark:bg-red-700 shadow text-sm z-50 text-white py-1.5 sticky top-0 right-0 left-0 font-semibold text-left flex items-start gap-1 px-4 justify-center">
+                  <FiAlertOctagon size={16} className="flex-shrink-0 mt-0.5" />
+                  Attention: The application is nowhere near to being completed,
+                  expect missing features and bugs
+                </div>
                 <div className="p-4">{children}</div>
               </div>
             </div>
