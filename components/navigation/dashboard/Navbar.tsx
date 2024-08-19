@@ -67,7 +67,7 @@ export default function Navbar({ session }: any): React.JSX.Element {
                     type="submit"
                     className="w-full text-red-500 text-md flex min-h-[35px] px-2 hover:underline hover:opacity-85 transition-all items-center justify-between"
                   >
-                    Logout
+                    Sign Out
                     <FaDoorOpen size={18} />
                   </button>
                 </form>

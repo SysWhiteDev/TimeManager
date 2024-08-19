@@ -36,11 +36,15 @@ export default function TasksSection({
   const [tasks, setTasks] = useState<Task[]>();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [loading, setLoading] = useState<boolean>(true);
+  const [deleting, setDeleting] = useState<boolean>(false);
   const [createLoading, setCreateLoading] = useState<boolean>(false);
 
   const tryDeleteGoal = async () => {
-    await deleteGoal(goalId);
-    router.push("/dash");
+    setDeleting(true);
+    await deleteGoal(goalId).then(() => {
+      router.push("/dash");
+      setDeleting(false);
+    });
   };
 
   const tryGetTasks = async () => {
@@ -105,8 +109,8 @@ export default function TasksSection({
           )}
         </ModalContent>
       </Modal>
-      <div className="bg-white flex flex-col gap-2.5 shadow p-4 pb-2 rounded-xl mt-12">
-        <div className="flex justify-between border-b pb-4 items-center">
+      <div className="bg-white dark:bg-neutral-950 flex flex-col gap-2.5 shadow p-4 pb-2 rounded-xl mt-12">
+        <div className="flex justify-between border-b dark:border-neutral-700 pb-4 items-center">
           <span className="opacity-65">
             {!loading && (
               <>
@@ -144,7 +148,11 @@ export default function TasksSection({
                     className="w-full gap-2.5 text-red-500 text-md flex min-h-[35px] px-2 hover:underline hover:opacity-60 transition-all items-center justify-between"
                   >
                     Delete Goal
-                    <FaRegTrashCan size={18} />
+                    {deleting ? (
+                      <Spinner color="danger" size="sm" />
+                    ) : (
+                      <FaRegTrashCan size={18} />
+                    )}
                   </button>
                 </PopoverContent>
               </Popover>

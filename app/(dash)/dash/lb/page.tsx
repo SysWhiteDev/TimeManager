@@ -19,8 +19,6 @@ export default async function Page({ searchParams }: any) {
     );
   }
 
-
-
   return (
     <div className="max-w-6xl lg:px-4 sm:px-0 mx-auto pt-[5dvh] lg:pt-[10dvh] pb-8">
       <p className="text-6xl font-semibold pt-2">Leaderboard</p>
@@ -29,7 +27,7 @@ export default async function Page({ searchParams }: any) {
         <LbSelector targetTimespan={"month"}>This month</LbSelector>
         <LbSelector targetTimespan={"all"}>Lifetime</LbSelector>
       </div>
-      <div className="bg-neutral-100 overflow-x-scroll dark:bg-neutral-800 dark:border-neutral-700 border border-white p-2 rounded-xl mt-4 w-full">
+      <div className="bg-neutral-100 overflow-x-auto dark:bg-neutral-800 dark:border-neutral-700 border border-white p-2 rounded-xl mt-4 w-full">
         <div className="flex text-sm min-w-[400px] uppercase text-neutral-700 dark:text-neutral-300 dark:bg-neutral-900 items-center justify-between p-2 px-3 bg-neutral-200 rounded-md font-semibold">
           <div className="flex items-center">
             <div className="min-w-[46px] flex-shrink-0 mr-4">#</div>
